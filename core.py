@@ -42,3 +42,8 @@ def inline_css_extractor(soup):
     soup.head.append(internal_css)
     # you can instead of return create new file with the css and the body data without the styles attribute 
     return str(soup)
+
+
+source = urllib.request.urlopen('https://pythonprogramming.net/parsememcparseface/').read()
+soup = BeautifulSoup(source, 'lxml')
+new_soup = inline_css_extractor(soup)  ### this contains the internal style appended to the html, and the styles attributes removed from elements
