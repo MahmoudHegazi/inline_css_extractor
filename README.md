@@ -32,3 +32,41 @@ this function will return soup object you can get the html or use other soup met
 
 
 
+
+##### old example of app
+```python
+        source = urllib.request.urlopen('https://pythonprogramming.net/parsememcparseface/').read()
+        soup = BeautifulSoup(source, 'lxml')
+        for elm in all_elms:
+                if isinstance(elm, bs4.element.Tag):
+                    parent = elm.parent
+                    parent_xpath = []
+                    nth_num = 0
+                    childs = list(elm.children)
+                    if len(childs) == 0:
+                        elm_style = elm.get('style')
+                        if elm_style:                        
+                            while parent:
+                                parent_xpath.append(parent.name)
+                                parent = parent.parent
+                            parent_xpath.reverse()
+                            simple_xpath = " ".join(parent_xpath)
+                            clean_css.append("%s %s {%s}"%(simple_xpath, elm.name, elm_style))
+                    else:
+
+                        while parent and parent.name != '[document]':
+                            parent_xpath.append(parent.name)
+                            parent = parent.parent
+                        parent_xpath.reverse()
+                        simple_xpath = " ".join(parent_xpath)
+                        elm_style = elm.get('style')
+                        if elm.get('style'):
+                            clean_css.append("%s %s {%s}"%(simple_xpath, elm.name, elm_style))
+
+                        for i in range(len(childs)):
+                            child_elm = childs[i]
+                            if isinstance(child_elm, bs4.element.Tag):
+                                elm_style = child_elm.get('style')
+                                if elm_style:
+                                    clean_css.append("%s %s:nth-child(%s){%s}"%(simple_xpath, child_elm.name, i+1 , elm_style))
+```
