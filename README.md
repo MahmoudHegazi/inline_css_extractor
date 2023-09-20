@@ -70,3 +70,8 @@ this function will return soup object you can get the html or use other soup met
                                 if elm_style:
                                     clean_css.append("%s %s:nth-child(%s){%s}"%(simple_xpath, child_elm.name, i+1 , elm_style))
 ```
+
+
+# note:
+URL used in soup from tutorial:
+https://pythonprogramming.net/introduction-scraping-parsing-beautiful-soup-tutorial/
